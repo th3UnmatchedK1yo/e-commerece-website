@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import React, { use, useEffect, useState } from "react";
 import { boolean, set } from "zod/v4";
 import HeaderSearchBar from "./HeaderSearchBar";
+import { useCartStore } from "@/stores/cart-store";
+import { useShallow } from "zustand/shallow";
+import { get } from "http";
 
 const AnnouncementBar = () => {
   return (
@@ -26,8 +29,16 @@ type HeaderProps = {
 
 const Header = ({ user, categorySelector }: HeaderProps) => {
   const router = useRouter();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [prevScrollY, setPrevScrollY] = useState<number>(0);
+
+  const { open, getTotalItems } = useCartStore(
+    useShallow((state) => ({
+      open: state.open,
+      getTotalItems: state.getTotalItems
+    }))
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -91,7 +102,7 @@ const Header = ({ user, categorySelector }: HeaderProps) => {
             </Link>
 
             <div className="flex flex-1 justify-end items-center gap-2 sm:gap-4">
-              <HeaderSearchBar/>
+              <HeaderSearchBar />
               {user ? (
                 <div className="flex items-center gap-2 sm:gap-4">
                   <span className="text-sm text-gray-700 hidden md:block">
@@ -126,7 +137,10 @@ const Header = ({ user, categorySelector }: HeaderProps) => {
                 </React.Fragment>
               )}
 
-              <button className="text-gray-700 hover:text-gray-900 relative">
+              <button
+                onClick={() => open()}
+                className="text-gray-700 hover:text-gray-900 relative"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 sm:h-6 sm:w-6"
@@ -141,7 +155,9 @@ const Header = ({ user, categorySelector }: HeaderProps) => {
                     d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                   />
                 </svg>
-                <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] sm:text-xs w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full flex items-center justify-center"></span>
+                <span className="absolute -top-1 -right-1 bg-black text-white text-[10px] sm:text-xs w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full flex items-center justify-center">
+                  {getTotalItems()}
+                </span>
               </button>
             </div>
           </div>

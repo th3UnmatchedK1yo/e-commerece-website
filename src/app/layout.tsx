@@ -8,6 +8,7 @@ import { getCurrentSession } from "@/actions/auth";
 import { SanityLive } from "@/sanity/lib/live";
 import Header from "@/components/layout/Header";
 import HeaderCategorySelector from "@/components/layout/HeaderCategorySelector";
+import Cart from "@/components/cart/Cart";
 
 
 
@@ -33,6 +34,7 @@ const RootLayout = async ({
         <Header user={user} 
         categorySelector={<HeaderCategorySelector/>}/>
         {children}
+        <Cart/>
         <SanityLive/>
       </body>
     </html>

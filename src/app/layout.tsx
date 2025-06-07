@@ -4,9 +4,11 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 
 import { getCurrentSession } from "@/actions/auth";
-import Header from "./components/layout/Header";
+
 import { SanityLive } from "@/sanity/lib/live";
-import HeaderCategorySelector from "./components/layout/HeaderCategorySelector";
+import Header from "@/components/layout/Header";
+import HeaderCategorySelector from "@/components/layout/HeaderCategorySelector";
+
 
 
 const inter = Inter({ subsets: ["latin"] });

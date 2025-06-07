@@ -3,9 +3,11 @@ import { getAllProducts } from "@/sanity/lib/client";
 import { get } from "http";
 import Image from "next/image";
 
-import ProductGrid from "./components/product/ProductGrid";
+
 import { product } from '../sanity/schemaTypes/schemas/product';
-import SalesCampaignBanner from "./components/layout/SalesCampaignBanner";
+import SalesCampaignBanner from "@/components/layout/SalesCampaignBanner";
+import ProductGrid from "@/components/product/ProductGrid";
+
 
 const Home = async () => {
 

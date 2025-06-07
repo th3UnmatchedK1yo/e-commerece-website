@@ -1,16 +1,17 @@
 
 import SalesCampaignBanner from '@/components/layout/SalesCampaignBanner';
 import ProductGrid from '@/components/product/ProductGrid';
-import { getCategoryBySlug, getProductsByCategorySlug } from '@/sanity/lib/client';
+import { getCategoryBySlug, getProductsByCategorySlug, searchProducts } from '@/sanity/lib/client';
 import React from 'react';
 
-type CategoryPageProps = {
-    params: Promise<{ slug: string }>;
-};
-const CategoryPage = async ({ params }: CategoryPageProps) => {
-    const { slug } = await params;
 
-    const [category, products] = await Promise.all([getCategoryBySlug(slug), getProductsByCategorySlug(slug)]);
+type SearchPageProps = {
+    searchParams: Promise<{ query: string }>;
+};
+const SearchPage = async ({ searchParams }: SearchPageProps) => {
+    const { query } = await searchParams;
+
+    const products = await searchProducts(query);
 
     return (
         <div>
@@ -18,9 +19,15 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 
             <div className='bg-red-50 p-4'>
                 <div className='container mx-auto'>
-                    <h1 className='text-2xl md:text-3xl font-bold text-center text-red-600 mb-2'>{category.title} - UP TO 90% OFF! 🔥</h1>
-                    <p className='text-center text-red-500 text-sm md:text-base animate-pulse'>⚡️ Flash Sale Ending Soon! ⏰ Limited Time Only</p>
-                    <p className='text-center text-gray-600 text-xs mt-2'>{category.description}</p>
+                    <h1 className='text-2xl md:text-3xl font-bold text-center text-red-600 mb-2'>
+                        Search Results for &quot;{query}&quot; - UP TO 90% OFF! 🔥
+                    </h1>
+                    <p className='text-center text-red-500 text-sm md:text-base animate-pulse'>
+                        ⚡️ Flash Sale Ending Soon! ⏰ Limited Time Only
+                    </p>
+                    <p className='text-center text-gray-600 text-xs mt-2'>
+                        Discover amazing deals matching your search
+                    </p>
                 </div>
             </div>
 
@@ -54,4 +61,4 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
     );
 };
 
-export default CategoryPage;
+export default SearchPage;

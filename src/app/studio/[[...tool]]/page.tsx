@@ -10,7 +10,8 @@
 import { NextStudio } from 'next-sanity/studio'
 import config from '../../../../sanity.config'
 
-export const dynamic = 'force-static'
+export const runtime = 'nodejs';   // ← tells Vercel to build a lambda
+
 
 export { metadata, viewport } from 'next-sanity/studio'
 

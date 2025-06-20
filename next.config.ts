@@ -6,15 +6,7 @@ const nextConfig: NextConfig = {
     domains: ["cdn.sanity.io"],
   },
 
-  typescript: {
-    // 🚨 Turns off TypeScript errors during `next build`
-    ignoreBuildErrors: true,
-  },
-
-  eslint: {
-    // Don’t block the build on ESLint warnings/errors
-    ignoreDuringBuilds: true,
-  },
+  
 };
 
 export default nextConfig;
